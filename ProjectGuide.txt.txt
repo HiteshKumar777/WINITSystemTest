@@ -1,0 +1,18 @@
+Clone the directory.
+FrontEnd folder has Angular project
+BackEnd folder has Flask Rest API
+Database folder has .sql file
+
+
+Install NPM and angular CLi on you system to run angular project
+Open angular project inside vs code
+Open terminal and type "npm i" to install the node_modules and type ng serve to run the project
+
+Install python on your system to run flask project
+Open backend in vs code
+Install the flask dependencies
+run "flask run" to run the project. Note [$export FLASK_APP = "application.py"] to set the application.py as main file to run
+
+Install XAMPP on your system for database
+Run XAMPP and open phpmyadmin on browser.
+Import the .sql file which I have added in database folder
