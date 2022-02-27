@@ -1,0 +1,135 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">WINIT</a>
+    <ul class="navbar-nav">
+    </ul>
+  </nav>
+  
+  <form [formGroup]="CartForm" (ngSubmit)="addToCart()">
+  <div class="container" style="margin-top:80px">
+    <div class="form-group">
+        <label class="control-label">Select Customer</label>
+        <select class="form-control" formControlName="customerid">
+           <option *ngFor="let Customer of customers" [value]="Customer.Cust_Id">{{Customer.Cust_Name}}</option>
+        </select>
+    </div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addToCart">
+        Add Products
+    </button>
+  </div>
+  <div class="modal" id="addToCart">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Products</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let Product of products">
+                    <div class="form-check">
+                        <label class="form-check-label" for="check1">
+                          <input type="checkbox" class="form-check-input" [value]="Product.P_Id" (change)="onCheckChange($event)">
+                        </label>
+                      </div> 
+                    <td>{{Product.P_Id}}</td>
+                    <td>{{Product.P_Name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="table-responsive container mt-5">
+  <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Cart Id</th>
+          <th>Customer Name</th>
+          <th>Product Name</th>
+          <th>QTY</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="cartlist">
+        <tr *ngFor="let cartlist of cartlist">
+          <td>{{cartlist.OI_Id}}</td>
+          <td>{{cartlist.Cust_Name}}</td>
+          <td>{{cartlist.P_Name}}</td>
+          <td><input type="text" class="form-control form-control" [value]="cartlist.QTY" #QTY placeholder="0"></td>
+          <td><button class="btn btn-primary" (click)="updateQTY(QTY.value, cartlist.OI_Id)">Update</button></td>
+          <td><button class="btn btn-danger" (click)="deleteCart(cartlist.OI_Id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col text-center">
+        <button class="btn btn-success" data-toggle="modal" data-target="#finalize">Finalize</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="finalize">
+  <form [formGroup]="OrderForm">
+    <div class="modal-dialog">
+      <div class="modal-content">
+       <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let customer of customerorder">
+                    <div class="form-check">
+                        <label class="form-check-label" for="check1">
+                          <input type="checkbox" class="form-check-input" [value]="customer.Cust_Id" (change)="onCheckChangeOrder($event)">
+                        </label>
+                      </div> 
+                    <td>{{customer.Cust_Id}}</td>
+                    <td>{{customer.Cust_Name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" (click)="order()">Add</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  </div>
